@@ -41,6 +41,7 @@ body {
     box-sizing: border-box; 
 }
 
+
 .location-text {
     font-style: italic; /* Тот самый курсив */
     cursor: default;    /* Мышка не превращается в палец */
@@ -239,25 +240,37 @@ body {
     overflow-y: auto;
 }
 
+.category-title {
+    grid-column: 1 / -1; 
+    /*text-align: center;/* Заголовок занимает всю ширину сетки */
+    font-size: 24px;
+    font-weight: 800;
+    text-transform: uppercase; /* Делаем капсом для строгости */
+    margin-top: 120px;    /* Отступ сверху от предыдущего блока */
+    margin-bottom: 40px; /* Отступ снизу до картинок */
+    letter-spacing: -1px;
+}
 /* Секция галереи */
 .gallery {
     padding: 100px 40px; /* Отступы сверху и снизу, чтобы не перекрывалось меню */
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    gap: 80px; /* Расстояние между блоками картинок */
+    gap: 0px; /* Расстояние между блоками картинок */
 }
 
 /* Блок с одной крупной картинкой */
 .gallery-item.large  {
     display: flex;
-    justify-content: center; /* Центрируем вертикальное фото */
+    justify-content: center; 
+    margin-bottom: 0px;/* Центрируем вертикальное фото */
 }
 
 .gallery-item.large  img {
     width: 60%; /* Делаем её чуть уже, как на твоем дизайне */
     height: auto;
     object-fit: cover;
+    margin-bottom: 40px;
 }
 /* Создаем НОВОЕ правило только для тех, у кого есть класс full-width */
 .gallery-item.large.full-width img {
@@ -269,6 +282,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Две равные колонки */
     gap: 40px; /* Расстояние между двумя фото */
+    margin-bottom: 40px;
 }
 
 .gallery-item_1 img {
@@ -276,12 +290,14 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    
 }
 .gallery-item_2 img {
     width: 100%;
     height: 80%;
     object-fit: cover;
     display: block;
+    
 }
 
 /* Начальное состояние панели — спрятана внизу */
@@ -375,6 +391,52 @@ body {
     position: relative;
 }
 
+@media (max-width: 768px) {
+    /* --- ХЕДЕР --- */
+    .nav-links a { display: none; } /* Прячем обычные ссылки */
+    .mobile-menu-btn { display: block; cursor: pointer; }
+
+    /* --- ГЛАВНОЕ МЕНЮ (Черное) --- */
+    .main-menu-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000; color: #fff; z-index: 300;
+        display: flex; flex-direction: column;
+        transform: translateY(-100%); /* Выезжает сверху */
+        transition: transform 0.5s ease;
+    }
+    .main-menu-overlay.active { transform: translateY(0); }
+    .main-menu-links {
+        display: flex; flex-direction: column;
+        padding: 100px 40px; gap: 40px;
+    }
+    .main-menu-links a {
+        color: #fff; font-size: 48px; font-weight: 700; text-decoration: none;
+    }
+
+    /* --- INFO OVERLAY (Черный на мобилке по дизайну) --- */
+    #info-overlay {
+        background-color: #000;
+        color: #fff;
+    }
+    #info-overlay .overlay-nav { color: #fff; }
+    #info-overlay .close-btn { color: #fff; text-align: center; flex: 1; }
+    #info-overlay .overlay-content { grid-template-columns: 1fr; }
+
+    /* --- PLANS OVERLAY (Белый на мобилке) --- */
+    #plans-overlay {
+        background-color: #fff;
+        color: #000;
+    }
+    #plans-overlay .plans-grid {
+        grid-template-columns: 1fr; /* Картинки одна под другой */
+        gap: 20px;
+    }
+
+    /* --- ГАЛЕРЕЯ НА ГЛАВНОЙ --- */
+    .gallery-row { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; height: auto; padding-top: 100px; }
+    h1 { font-size: 80px; align-self: flex-start; }
+}
 
 
 

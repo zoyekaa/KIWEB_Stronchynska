@@ -46,3 +46,19 @@ btnToInfo.addEventListener('click', () => {
     plansOverlay.classList.remove('active'); // Убираем планы
     infoOverlay.classList.add('active');     // Показываем инфо
 });
+
+const mainMenu = document.getElementById('main-menu-overlay');
+const btnOpenMain = document.getElementById('open-main-menu');
+const btnCloseMain = document.getElementById('close-main-menu');
+
+// Открыть главное меню
+btnOpenMain.addEventListener('click', () => {
+    mainMenu.classList.add('active');
+    document.body.style.overflow = 'hidden';
+});
+
+// Закрыть главное меню
+btnCloseMain.addEventListener('click', () => {
+    mainMenu.classList.remove('active');
+    document.body.style.overflow = 'auto';
+});
