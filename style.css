@@ -61,6 +61,22 @@ body {
     position: relative; /* Плавная смена цвета, если захочешь */
 }
 
+/* Прячем мобильную кнопку и меню на десктопе */
+.mobile-menu-btn {
+    display: none;
+}
+
+.main-menu-overlay {
+    display: none; /* Полностью скрываем с экрана */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 300;
+}
+
 /* Создаем саму линию (пока невидимую) */
 .nav-links a::after, 
 .footer span::after {
@@ -270,7 +286,7 @@ body {
     width: 60%; /* Делаем её чуть уже, как на твоем дизайне */
     height: auto;
     object-fit: cover;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 }
 /* Создаем НОВОЕ правило только для тех, у кого есть класс full-width */
 .gallery-item.large.full-width img {
@@ -281,8 +297,8 @@ body {
 .gallery-row {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Две равные колонки */
-    gap: 40px; /* Расстояние между двумя фото */
-    margin-bottom: 40px;
+    gap: 32px; /* Расстояние между двумя фото */
+    margin-bottom: 32px;
 }
 
 .gallery-item_1 img {
@@ -359,16 +375,16 @@ body {
     margin-bottom: 12px; /* Регулируй этот параметр для отступа между блоками */
 }
 
-/* 3. Делаем микро-отступ внутри группы, чтобы текст не слипался совсем вплотную */
+
 .data-item .label {
-    font-weight: 800; /* Делаем заголовок жирным как на макете */
-    margin-bottom: 2px; /* Совсем крошечный отступ между заголовком и датой */
+    font-weight: 800; 
+    margin-bottom: 2px; 
 }
 
-/* Сетка для планов */
+
 .plans-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 40px;
     padding-top: 40px;
 }
@@ -377,68 +393,112 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    filter: grayscale(100%); /* Если хочешь сделать их ч/б как на скрине */
+    filter: grayscale(100%); 
     transition: filter 0.3s ease;
 }
 
 .plan-item img:hover {
-    filter: grayscale(0%); /* Цвет при наведении */
+    filter: grayscale(0%); 
 }
 
-/* Стили для ссылок-переключателей внутри оверлеев */
+
 .nav-item {
     cursor: pointer;
     position: relative;
 }
 
 @media (max-width: 768px) {
-    /* --- ХЕДЕР --- */
-    .nav-links a { display: none; } /* Прячем обычные ссылки */
-    .mobile-menu-btn { display: block; cursor: pointer; }
+    
 
-    /* --- ГЛАВНОЕ МЕНЮ (Черное) --- */
-    .main-menu-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #000; color: #fff; z-index: 300;
-        display: flex; flex-direction: column;
-        transform: translateY(-100%); /* Выезжает сверху */
-        transition: transform 0.5s ease;
-    }
-    .main-menu-overlay.active { transform: translateY(0); }
-    .main-menu-links {
-        display: flex; flex-direction: column;
-        padding: 100px 40px; gap: 40px;
-    }
-    .main-menu-links a {
-        color: #fff; font-size: 48px; font-weight: 700; text-decoration: none;
+    
+    .hero {
+        display: block; 
+        height: auto; 
+        padding: 0;
     }
 
-    /* --- INFO OVERLAY (Черный на мобилке по дизайну) --- */
-    #info-overlay {
-        background-color: #000;
-        color: #fff;
-    }
-    #info-overlay .overlay-nav { color: #fff; }
-    #info-overlay .close-btn { color: #fff; text-align: center; flex: 1; }
-    #info-overlay .overlay-content { grid-template-columns: 1fr; }
-
-    /* --- PLANS OVERLAY (Белый на мобилке) --- */
-    #plans-overlay {
-        background-color: #fff;
-        color: #000;
-    }
-    #plans-overlay .plans-grid {
-        grid-template-columns: 1fr; /* Картинки одна под другой */
-        gap: 20px;
+    .hero-image {
+        width: 100%;
+        height: 100vh; 
+        overflow: hidden;
     }
 
-    /* --- ГАЛЕРЕЯ НА ГЛАВНОЙ --- */
-    .gallery-row { grid-template-columns: 1fr; }
-    .hero { grid-template-columns: 1fr; height: auto; padding-top: 100px; }
-    h1 { font-size: 80px; align-self: flex-start; }
+    .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; 
+        display: block;
+    }
+
+    .hero-content {
+        display: block;
+        padding: 24px 20px; 
+        height: auto; 
+    }
+
+    .hero-content h1, .hero h1 {
+        font-size: 48px; 
+        font-weight: 800;
+        text-align: left; 
+        letter-spacing: -2px;
+    }
+
+    .description {
+        max-width: none;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #333;
+        margin-top: 8px;
+    }
+
+
+    
+    .gallery {
+        padding: 40px 20px; 
+        display: flex;
+        flex-direction: column;
+        gap: 0; 
+    }
+
+    
+    .category-title {
+        text-align: left;
+        font-size: 14px;
+        font-weight: 800;
+        margin-top: 60px;
+        margin-bottom: 25px;
+    }
+
+   
+    .gallery-item.large {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .gallery-item.large img {
+        width: 100% ; 
+        height: auto;
+    }
+
+   
+    .gallery-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px; 
+        margin-bottom: 20px;
+    }
+
+    
+    .gallery-item_1 img, 
+    .gallery-item_2 img {
+        width: 100%;
+        height: 200px; 
+        object-fit: cover;
+    }
+
+    
+    .footer {
+        padding: 15px 20px;
+        font-size: 12px;
+    }
 }
-
-
-
-
-
