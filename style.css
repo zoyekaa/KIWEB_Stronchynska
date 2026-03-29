@@ -566,7 +566,7 @@ body {
     }
 
     /* 2. Оформляем черное мобильное меню */
-    @media (max-width: 768px) {
+   
     /* Настройки черного меню */
     .main-menu-overlay {
         padding-top: 40px; /* Отступ сверху, чтобы кнопка не пряталась под "чёлкой" */
@@ -597,7 +597,7 @@ body {
         text-align: right;
         color: #fff;
     }
-}
+
 
     .main-menu-links {
         display: flex;
@@ -615,7 +615,7 @@ body {
         font-weight: 700;
         text-decoration: none;
     }
-}
+
      .impressum-container {
         padding: 100px 20px;
     }
@@ -780,4 +780,4 @@ body {
     .footer-logo {
         height: 40px;
     }
-
+    }
