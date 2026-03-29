@@ -41,6 +41,23 @@ body {
     box-sizing: border-box; 
 }
 
+/* В основном коде */
+.main-menu-overlay {
+    display: none; /* Скрыто на десктопе */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 1000;
+}
+
+/* Когда нажимаем на кнопку через JS */
+.main-menu-overlay.active {
+    display: flex; /* Появляется на весь экран */
+    flex-direction: column;
+}
 
 .location-text {
     font-style: italic; /* Тот самый курсив */
@@ -98,6 +115,46 @@ body {
 
 .header { top: 0; }
 .footer { bottom: 0; }
+.site-footer {
+    width: 100%;
+    padding: 100px 40px 160px 40px; /* Большой нижний отступ, чтобы контент не перекрывался фиксированным меню */
+    background-color: #fff;
+    border-top: 1px solid #eee; /* Тонкая разделительная линия */
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Расталкивает блоки по краям */
+    align-items: flex-end; /* Выравнивает по нижней линии */
+}
+
+.footer-left {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.address {
+    margin-bottom: 20px;
+}
+
+.impressum-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.impressum-link:hover {
+    opacity: 0.6;
+}
+
+.footer-logo {
+    height: 60px; /* Логотип внизу можно сделать чуть крупнее */
+    width: auto;
+}
 
 .logo {
     font-family: 'Figtree', sans-serif;
@@ -336,17 +393,61 @@ body {
     transform: translateY(0); /* Возвращается в поле зрения */
 }
 
-/* Навигация внутри панели */
 .overlay-nav {
-    display: flex;
-    justify-content: space-between;
+    display: grid; /* Используем сетку вместо flex */
+    grid-template-columns: 1fr 1fr 1fr; /* Три абсолютно равные колонки */
+    align-items: center;
     padding-bottom: 60px;
     font-size: 14px;
+    width: 100%;
 }
 
-.close-btn {
+/* Выравнивание элементов внутри колонок */
+.overlay-nav .location-text {
+    text-align: left;
+}
+
+.overlay-nav .nav-item {
+    text-align: center; /* Кнопка переключения всегда ровно по центру */
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.overlay-nav .close-btn {
+    text-align: right; /* Кнопка закрытия всегда прижата к правому краю */
     cursor: pointer;
     font-weight: 800;
+    text-transform: none; /* Убираем капс, если он был */
+}
+/* --- Эффект тонкого подчеркивания для кнопок в Оверлее --- */
+
+.overlay-nav .nav-item, 
+.overlay-nav .close-btn {
+    text-decoration: none;
+    color: #000;
+    position: relative;    /* Обязательно для позиционирования линии */
+    padding-bottom: 2px;   /* Отступ для линии */
+    cursor: pointer;
+    display: inline-block; /* Чтобы ширина линии была ровно по тексту */
+}
+
+/* Создаем саму линию (невидимую по умолчанию) */
+.overlay-nav .nav-item::after, 
+.overlay-nav .close-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;              /* Линия начинается с нулевой ширины */
+    height: 1px;           /* Толщина 1px, как на главной */
+    background-color: #000;
+    transition: width 0.3s ease; /* Плавное появление за 0.3 сек */
+}
+
+/* Анимация при наведении: линия растягивается на 100% */
+.overlay-nav .nav-item:hover::after, 
+.overlay-nav .close-btn:hover::after {
+    width: 100%;
 }
 
 /* Сетка контента в 3 колонки */
@@ -406,11 +507,176 @@ body {
     cursor: pointer;
     position: relative;
 }
+/* Стили для страницы Impressum */
+.impressum-container {
+    padding: 160px 40px; /* Большой отступ сверху для фиксированного хедера */
+    display: flex;
+    justify-content: center;
+    min-height: 80vh;
+}
+
+.impressum-text {
+    max-width: 700px; /* Ограничиваем ширину для читабельности */
+    width: 100%;
+}
+
+.impressum-text h1 {
+    font-size: 28px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    letter-spacing: -1px;
+}
+
+.impressum-text p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 40px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 700;
+    font-size: 14px;
+    transition: opacity 0.3s;
+}
+
+.back-link:hover {
+    opacity: 0.5;
+}
+
+
+
 
 @media (max-width: 768px) {
     
+   
+    /* 1. Прячем десктопные ссылки и показываем слово Menu */
+    .nav-links a {
+        display: none; /* Прячем Projekte, Über uns... */
+    }
 
+    .mobile-menu-btn {
+        display: block; /* Показываем только слово Menu */
+        cursor: pointer;
+    }
+
+    /* 2. Оформляем черное мобильное меню */
+    @media (max-width: 768px) {
+    /* Настройки черного меню */
+    .main-menu-overlay {
+        padding-top: 40px; /* Отступ сверху, чтобы кнопка не пряталась под "чёлкой" */
+        background-color: #000;
+    }
+
+    /* Навигация внутри черного меню */
+    .main-menu-overlay .overlay-nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; /* Три колонки для симметрии */
+        padding: 0 20px;
+        
+        padding-right: 20px;
+        padding-top: 20px;
+        width: 100%;
+        align-items: center;
+    }
+
+    /* Цвет текста для логотипа и кнопки закрыть */
+    .white-text {
+        color: #fff !important;
+        font-size: 14px;
+        opacity: 1 !important;
+    }
+
+    /* Кнопка закрыть в черном меню */
+    .main-menu-overlay .close-btn {
+        text-align: right;
+        color: #fff;
+    }
+}
+
+    .main-menu-links {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 70vh; /* Располагаем ссылки по центру высоты */
+        padding-left: 40px;
+        gap: 20px;
+    }
+
+    .main-menu-links a {
+        display: block; /* Проявляем ссылки внутри оверлея */
+        color: #fff;
+        font-size: 48px; /* Огромный шрифт как на макете */
+        font-weight: 700;
+        text-decoration: none;
+    }
+}
+     .impressum-container {
+        padding: 100px 20px;
+    }
+    .impressum-text h1 {
+        font-size: 22px;
+    }
+
+
+    .overlay-nav {
+        grid-template-columns: 1fr 1fr 1fr; /* Оставляем три колонки */
+        padding-bottom: 40px;
+    }
     
+    /* Можно немного уменьшить шрифт, если слова не влезают в ряд */
+    .overlay-nav {
+        font-size: 12px;
+    }
+
+    #info-overlay .overlay-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка на всю ширину */
+    gap: 40px; /* Отступ между блоками текста */
+    padding-bottom: 80px; /* Запас снизу, чтобы текст не перекрывался навигацией */
+}
+
+#info-overlay .column {
+    width: 100%;
+}
+
+#info-overlay .overlay-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка на всю ширину */
+    gap: 40px; /* Отступ между блоками текста */
+    padding-bottom: 80px; /* Запас снизу, чтобы текст не перекрывался навигацией */
+}
+
+#info-overlay .column {
+    width: 100%;
+}
+
+#plans-overlay .plans-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна картинка в ряду */
+    gap: 30px; /* Расстояние между планами */
+    padding-bottom: 80px;
+}
+
+#plans-overlay .plan-item img {
+    width: 100%;
+    height: auto;
+    filter: grayscale(0%); /* На мобилке лучше оставить цветными для четкости */
+}
+.info-overlay {
+    padding: 20px 20px; /* Уменьшаем боковые поля на мобилке для экономии места */
+}
+
+.overlay-nav {
+    padding-bottom: 30px; /* Сокращаем отступ до контента */
+    grid-template-columns: 1fr 1fr 1fr; /* Сохраняем стабильную сетку кнопок */
+}
+
     .hero {
         display: block; 
         height: auto; 
@@ -501,4 +767,17 @@ body {
         padding: 15px 20px;
         font-size: 12px;
     }
-}
+    .site-footer {
+        padding: 60px 20px 120px 20px; /* Учитываем фиксированный футер снизу на мобилке */
+    }
+
+    .footer-container {
+        flex-direction: column-reverse; /* Логотип окажется сверху, адрес под ним */
+        align-items: flex-start; /* Всё по левому краю */
+        gap: 40px;
+    }
+
+    .footer-logo {
+        height: 40px;
+    }
+
