@@ -554,7 +554,19 @@ body {
 
 @media (max-width: 768px) {
     
-   
+   .white-logo-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Прижимаем к левому краю колонки */
+        text-decoration: none; /* Убираем подчеркивание у ссылки */
+    }
+
+    .white-logo-wrapper img {
+        height: 20px; /* Устанавливаем аккуратную высоту, как у текста раньше */
+        width: auto;  /* Ширина подстроится автоматически */
+        display: block;
+    }
+
     /* 1. Прячем десктопные ссылки и показываем слово Menu */
     .nav-links a {
         display: none; /* Прячем Projekte, Über uns... */
