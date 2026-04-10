@@ -108,9 +108,12 @@ body {
 }
 
 
-.nav-links a:hover::after, 
-.footer span:hover::after {
-    width: 100%;          
+/* Линия появится только если на сайте есть курсор (десктоп) */
+@media (hover: hover) {
+    .nav-links a:hover::after, 
+    .footer span:hover::after {
+        width: 100%;          
+    }
 }
 
 .header { top: 0; }
@@ -443,10 +446,12 @@ body {
     transition: width 0.3s ease; 
 }
 
-/* Анимация при наведении: линия растягивается на 100% */
-.overlay-nav .nav-item:hover::after, 
-.overlay-nav .close-btn:hover::after {
-    width: 100%;
+/* Линия появится только если на сайте есть курсор (десктоп) */
+@media (hover: hover) {
+    .overlay-nav .nav-item:hover::after, 
+    .overlay-nav .close-btn:hover::after {
+        width: 100%;
+    }
 }
 
 /* Сетка контента в 3 колонки */
